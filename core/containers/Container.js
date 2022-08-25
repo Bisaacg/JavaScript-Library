@@ -7,15 +7,15 @@ import Item from "../items/Item.js";
 * @extends { Item }
 */
 export default class Container extends Item {
-    #validItems = [];
-    #activeItem = null;
+    validItems = [];
+    activeItem = null;
 
     constructor(canvas, x, y, width, height, validItems) {
         super(canvas, x, y, width, height);
         //if (this.constructor == Container)
         //    throw new Error("Abstract classes can't instantiated.");
 
-        this.#validItems = validItems;
+        this.validItems = validItems;
     }
 
     snapItemToContainer(item) {
@@ -25,7 +25,7 @@ export default class Container extends Item {
         && item.selected == false) {
             item.x = this.x;
             item.y = this.y;
-            this.#activeItem = item;
+            this.activeItem = item;
             return true;
         }
     }
@@ -39,15 +39,15 @@ export default class Container extends Item {
         ctx.stroke();
 
         // There is currently no item in the container
-        if (this.#activeItem == null)
+        if (this.activeItem == null)
             // check for valid items
-            this.#validItems.forEach((item) => {
+            this.validItems.forEach((item) => {
                 this.snapItemToContainer(item);
             });
 
         // If active item is selected release it from
         // the container
-        else if (this.#activeItem.selected)
-            this.#activeItem = null;
+        else if (this.activeItem.selected)
+            this.activeItem = null;
     }
 }
