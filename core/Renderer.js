@@ -49,27 +49,27 @@ export default class Renderer {
             }
             
         });
+
+        this.canvas = canvas;
+
+        setInterval(()=>{this.#update()}, 16.67);
+    }
+
+    #update() {
+        // If canvas is not set,
+        // throw error
+        if (!this.canvas)
+            throw new Error("Canvas is not defined.");
         
-        var frames = setInterval(() => {
-            var ctx = canvas.getContext("2d");
+        var ctx = this.canvas.getContext("2d");
 
-            // Refresh canvas for new frame
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Refresh canvas for new frame
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-            // Render all items
-            this.items.forEach((item) => {
-                item.render();
-            });
-
-        }, 16.67);
-    }
-
-    _load() {
-
-    }
-
-    _update() {
-
+        // Render all items
+        this.items.forEach((item) => {
+            item.render();
+        });
     }
 
     addItem(item) {
